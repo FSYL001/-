@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风神翼龙の个人网站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.helloimg.com/i/2025/02/11/67aac15b97398.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* 固定背景图片 */
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #ffffff95; /* 半透明背景 */
+        }
+        header h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+            background-color: #ffffff97; /* 半透明背景 */
+        }
+        .character {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            max-height: 90vh;
+        }
+        #ip, #time, #natType {
+            margin: 10px 0;
+        }
+        .button-container {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            z-index: 1000;
+        }
+        .button-container button {
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            width: 100%;
+        }
+        /* 左上角头像圆形样式 */
+        .profile-img {
+            max-height: 50px;
+            border-radius: 50%; /* 圆形效果 */
+            cursor: pointer;
+        }
+        /* 左下角链接样式 */
+        .bottom-links {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background-color: #ffffff95;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .bottom-links a {
+            display: block;
+            margin: 5px 0;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .bottom-links a:hover {
+            color: #0066cc;
+        }
+    </style>
+    <script>
+        // 获取IP地址
+        async function getIPAddress() {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            document.getElementById('ip').innerText = 'IP地址: ' + data.ip;
+        }
+
+        // 获取当前时间
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' });
+            document.getElementById('time').innerText = '当前时间: ' + timeString;
+        }
+
+        // 检测NAT类型
+        function checkNatType() {
+            const rtcPeerConnection = new RTCPeerConnection({
+                iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+            });
+
+            rtcPeerConnection.createDataChannel('');
+            rtcPeerConnection.createOffer().then(offer => rtcPeerConnection.setLocalDescription(offer));
+
+            rtcPeerConnection.onicecandidate = event => {
+                if (event.candidate && event.candidate.candidate) {
+                    const candidate = event.candidate.candidate;
+                    if (candidate.includes('srflx')) {
+                        document.getElementById('natType').innerText = 'NAT类型: Full Cone NAT';
+                    } else if (candidate.includes('relay')) {
+                        document.getElementById('natType').innerText = 'NAT类型: Symmetric NAT';
+                    } else if (candidate.includes('host')) {
+                        document.getElementById('natType').innerText = 'NAT类型: Open Internet';
+                    }
+                }
+            };
+        }
+
+        function toggleButtons() {
+            const container = document.getElementById('buttonContainer');
+            container.style.display = container.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            getIPAddress();
+            updateTime();
+            checkNatType();
+            setInterval(updateTime, 1000); // 每秒更新一次时间
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>风神翼龙的垃圾小站</h1>
+        <img src="https://www.helloimg.com/i/2025/02/11/67aac53e2a2f6.jpg" alt="右上角图片" class="profile-img" onclick="toggleButtons()">
+        <div id="buttonContainer" class="button-container">
+            <button onclick="window.location.href='https://space.bilibili.com/450000657?spm_id_from=333.337.0.0'">跳转B站个人主页</button>
+            <button onclick="window.location.href='https://www.douyin.com/user/MS4wLjABAAAAzWfG071S0Ol0_wF3xT1i0oL5eSpPdiYZZY_gKib9S_M?from_tab_name=main'">跳转抖音个人主页</button>
+        </div>
+    </header>
+    <main>
+        <p>本站属于测0.0.0.1bata版,用于测试cl链接是否正常！。</p>
+        <p id="ip">IP地址: 获取中...</p>
+        <p id="time">当前时间: 获取中...</p>
+        <p id="natType">NAT类型: 检测中...</p>
+        <p>站长QQ：3320969905 微信：h15259517990 抖音：Minecraft.fsyl 咸鱼：纯白蒲公英 邮箱： 3320969905@qq.com 3320969905@gmail.com  </p>
+    </main>
+    <img class="character" src="https://www.helloimg.com/i/2025/02/11/67aac60fd9da2.png" alt="右下角人物立绘">
+    
+    <!-- 左下角链接 -->
+  <div class="bottom-links">
+        <a href="https://wk8.fsyl001.sbs" target="_blank">FSYL的文库下载器</a>
+        <a href="https://xkl.fsyl001.sbs" target="_blank">FSYL的跳一跳小游戏</a>
+        <a href="https://nas.fsyl001.sbs" target="_blank">FSYLのNAS</a>
+        <a href="https://book.fsyl001.sbs" target="_blank">FSYLの文库</a>
+        <a href="https://games.fsyl001.sbs" target="_blank">FSYLの在小线游戏站</a>
+        <a href="https://mcsm.fsyl001.sbs" target="_blank">mcsm云仪表盘（若为购买请点击最下方链接购买）</a>
+        <a href="https://fnos.fsyl001.sbs" target="_blank">fn管理员后台</a>
+        <a href="https://qm.qq.com/q/Mh3D0giPCi" target="_blank">广告招租!合作联系！购买MCSM服务器!点这即可前往</a>
+    </div>
+</body>
+</html>

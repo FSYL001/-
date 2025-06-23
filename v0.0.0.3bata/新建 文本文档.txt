@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风神翼龙の个人网站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.helloimg.com/i/2025/02/11/67aac15b97398.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* 固定背景图片 */
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #ffffff95; /* 半透明背景 */
+        }
+        header h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+            background-color: #ffffff97; /* 半透明背景 */
+        }
+        .character {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            max-height: 90vh;
+        }
+        #ip, #time {
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+        // 获取IP地址
+        async function getIPAddress() {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            document.getElementById('ip').innerText = 'IP地址: ' + data.ip;
+        }
+
+        // 获取当前时间
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' });
+            document.getElementById('time').innerText = '当前时间: ' + timeString;
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            getIPAddress();
+            updateTime();
+            setInterval(updateTime, 1000); // 每秒更新一次时间
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>风神翼龙的垃圾小站</h1>
+        <img src="https://www.helloimg.com/i/2025/02/11/67aac53e2a2f6.jpg" alt="右上角图片" style="max-height: 50px;">
+    </header>
+    <main>
+        <p>本站属于测0.0.0.1bata版,用于测试cl链接是否正常！。</p>
+        <p id="ip">IP地址: 获取中...</p>
+        <p id="time">当前时间: 获取中...</p>
+        <p>站长QQ：3320969905 微信：h15259517990 抖音：Minecraft.fsyl 咸鱼：纯白蒲公英 邮箱： 3320969905@qq.com 3320969905@gmail.com  </p>
+    </main>
+    <img class="character" src="https://www.helloimg.com/i/2025/02/11/67aac60fd9da2.png" alt="右下角人物立绘">
+</body>
+</html>
